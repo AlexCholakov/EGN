@@ -10,11 +10,13 @@ namespace EGN
     {
         static void Main(string[] args)
         {
-            /* EGN 8406194582
+            /*     2485|10|9736
+             * EGN 8406194582
              * EGN 7552011038 - 2075 +50
              * EGN 7524169268 - 1875 +20*/
 
             string EGN = "9710164425";
+            int EGNnumber = int.Parse(EGN);
 
             int years = int.Parse(EGN.Substring(0, 2));
             int months = int.Parse(EGN.Substring(2, 2));
@@ -28,27 +30,48 @@ namespace EGN
 
             if (months > 0 && months < 13)
             {
-                Console.WriteLine("19" + years);
+                Console.Write("19" + years);
+                Console.Write(".{0}", months);
+                Console.WriteLine(".{0}", days);
             }
 
 
             else if (months > 20 && months < 33)
             {
-                Console.WriteLine("18" + years);
+                months -= 20;
+                Console.Write("18" + years);
+                Console.Write(".{0}", months);
+                Console.WriteLine(".{0}", days);
             }
 
             else if (months > 40 && months < 53)
             {
-                Console.WriteLine("20" + years);
+                months -= 40;
+                Console.Write("20" + years);
+                Console.Write(".{0}", months);
+                Console.WriteLine(".{0}", days);
+
             }
             else
             {
                 Console.WriteLine("Not a valid identity number.");
             }
 
+            CheckDigitWeight(EGN);
 
 
 
+        }
+
+        private static void CheckDigitWeight(string EGN)
+        {
+            int[] digits = new int[EGN.Length];
+            for (int i = 0; i < digits.Length; i++)
+            {
+                digits[i] = EGN[i];
+            }
+            int currentSum = (digits[0] * 2) + (digits[1] * 4) + (digits[2] * 8) + (digits[3] * 5) + (digits[4] * 10) + (digits[5] * 9) + (digits[6] * 7) + (digits[7] * 3) + (digits[8] * 6);
+            Console.WriteLine(currentSum);
         }
 
         public static bool CheckGender(string genderDigit)
